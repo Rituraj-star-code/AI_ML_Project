@@ -1,0 +1,30 @@
+{
+    "regression_model": {
+        "name": "Linear Regression",
+        "target": "final_score",
+        "MAE": 5.7422,
+        "RMSE": 7.2377,
+        "R2": 0.6056
+    },
+    "classification_model": {
+        "name": "Logistic Regression",
+        "target": "final_grade",
+        "accuracy": 0.3825,
+        "macro_f1": 0.3418,
+        "balanced_accuracy": 0.4136
+    },
+    "features": [
+        "age",
+        "attendance_percentage",
+        "study_hours_per_week",
+        "previous_grade",
+        "assignments_total",
+        "assignment_completion_rate",
+        "internal_marks",
+        "quiz_average",
+        "class_participation_score"
+    ],
+    "training_records": 1600,
+    "testing_records": 400,
+    "random_state": 42
+}

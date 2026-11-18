@@ -1,0 +1,977 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="AI-powered student performance prediction and analytics dashboard">
+    <title>Student Analytics | AI Performance Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <a href="#dashboard" class="brand">
+            <span class="brand-icon">SP</span>
+            <span class="brand-text">
+                <strong>Student Analytics</strong>
+                <small>AI Performance Suite</small>
+            </span>
+        </a>
+
+        <div class="sidebar-label">WORKSPACE</div>
+
+        <nav class="sidebar-nav">
+            <a href="#dashboard" class="nav-link active">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#analytics" class="nav-link">
+                <span class="nav-icon">▥</span>
+                <span>Analytics</span>
+            </a>
+
+            <a href="#prediction" class="nav-link">
+                <span class="nav-icon">✚</span>
+                <span>Student Prediction</span>
+            </a>
+
+            <a href="#history" class="nav-link">
+                <span class="nav-icon">◷</span>
+                <span>Prediction History</span>
+            </a>
+
+            <a href="#modelPerformance" class="nav-link">
+                <span class="nav-icon">▣</span>
+                <span>Model Performance</span>
+            </a>
+
+            <a href="#studentInsights" class="nav-link">
+                <span class="nav-icon">✦</span>
+                <span>Student Insights</span>
+            </a>
+
+            <a href="#methodology" class="nav-link">
+                <span class="nav-icon">▤</span>
+                <span>Dataset & Methodology</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-help">
+                <div class="help-icon">✦</div>
+                <strong>AI-powered insights</strong>
+                <p>Understand student performance through machine learning.</p>
+            </div>
+
+            <div class="sidebar-footer">
+                <span class="online-dot"></span>
+                <span>Prediction system online</span>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content" id="dashboard">
+
+        <!-- TOP NAVBAR -->
+        <header class="topbar">
+
+            <div class="topbar-left">
+                <button type="button" class="mobile-menu-btn"
+                        id="mobileMenuBtn" aria-label="Open navigation">
+                    ☰
+                </button>
+
+                <div>
+                    <p class="breadcrumb">Workspace / Dashboard</p>
+                    <h2>Dashboard Overview</h2>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="system-status">
+                    <span class="online-dot"></span>
+                    <span>System Online</span>
+                </div>
+
+                <button type="button" id="themeToggle"
+                        class="theme-toggle"
+                        aria-label="Switch to dark mode"
+                        title="Switch theme">
+                    <span id="themeIcon">☾</span>
+                    <span id="themeText">Dark Mode</span>
+                </button>
+
+                <div class="profile">
+                    <div class="profile-avatar">SA</div>
+                    <div class="profile-info">
+                        <strong>Student Analytics</strong>
+                        <small>Admin Dashboard</small>
+                    </div>
+                </div>
+
+            </div>
+        </header>
+
+
+        <!-- PAGE CONTENT -->
+        <div class="page-content">
+
+            <!-- WELCOME SECTION -->
+            <section class="welcome-section">
+                <div class="welcome-content">
+                    <span class="eyebrow">
+                        <span class="eyebrow-dot"></span>
+                        AI-POWERED PERFORMANCE PLATFORM
+                    </span>
+
+                    <h1>Predict. Analyze. <span>Improve.</span></h1>
+
+                    <p>
+                        Turn academic data into meaningful insights.
+                        Predict student performance and explore analytics
+                        powered by machine learning.
+                    </p>
+
+                    <a href="#prediction" class="primary-link">
+                        Start a prediction <span>→</span>
+                    </a>
+                </div>
+
+                <div class="welcome-decoration" aria-hidden="true">
+                    <div class="decoration-circle circle-one"></div>
+                    <div class="decoration-circle circle-two"></div>
+                    <div class="decoration-card">
+                        <span class="decoration-symbol">✦</span>
+                        <strong>AI Insights</strong>
+                        <small>Data-driven decisions</small>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ANALYTICS OVERVIEW -->
+            <section class="section-block" id="analytics">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-kicker">PERFORMANCE SUMMARY</span>
+                        <h2>Analytics Overview</h2>
+                        <p>Insights from your saved student predictions.</p>
+                    </div>
+
+                    <span class="live-label">
+                        <span class="online-dot"></span>
+                        LIVE DATABASE
+                    </span>
+                </div>
+
+
+                <div class="stats-grid">
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon purple">▤</div>
+                            <span class="stat-tag">DATABASE</span>
+                        </div>
+                        <p>Total Predictions</p>
+                        <h3 id="totalPredictions">0</h3>
+                        <small>Saved prediction records</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon blue">↗</div>
+                            <span class="stat-tag">AVERAGE</span>
+                        </div>
+                        <p>Average Predicted Score</p>
+                        <h3 id="averageScore">0.00</h3>
+                        <small>Out of 100 marks</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon green">A</div>
+                            <span class="stat-tag">GRADE A</span>
+                        </div>
+                        <p>Grade A Predictions</p>
+                        <h3 id="gradeA">0</h3>
+                        <small>Predictions classified as A</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon orange">O</div>
+                            <span class="stat-tag">GRADE O</span>
+                        </div>
+                        <p>Grade O Predictions</p>
+                        <h3 id="gradeO">0</h3>
+                        <small>Predictions classified as O</small>
+                    </article>
+
+                </div>
+            </section>
+
+
+            <!-- CHARTS -->
+            <section class="charts-grid">
+
+                <article class="content-card chart-card">
+                    <div class="card-heading">
+                        <div>
+                            <h3>Grade Distribution</h3>
+                            <p>Breakdown of predicted student grades</p>
+                        </div>
+                        <span class="chart-badge">GRADE ANALYSIS</span>
+                    </div>
+
+                    <div class="chart-container doughnut-container">
+                        <canvas id="gradeChart"></canvas>
+                    </div>
+                </article>
+
+                <article class="content-card chart-card">
+                    <div class="card-heading">
+                        <div>
+                            <h3>Prediction Score Analysis</h3>
+                            <p>Scores from recent student predictions</p>
+                        </div>
+                        <span class="chart-badge">SCORE ANALYSIS</span>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="scoreChart"></canvas>
+                    </div>
+                </article>
+
+            </section>
+
+
+            <!-- STUDENT PREDICTION -->
+            <section class="section-block" id="prediction">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-kicker">MACHINE LEARNING</span>
+                        <h2>Student Performance Prediction</h2>
+                        <p>Provide academic details to generate a prediction.</p>
+                    </div>
+                </div>
+
+
+                <div class="prediction-grid">
+
+                    <!-- INPUT FORM -->
+                    <article class="content-card form-card">
+
+                        <div class="card-heading">
+                            <div class="heading-with-icon">
+                                <div class="heading-icon purple">✎</div>
+                                <div>
+                                    <h3>Student Information</h3>
+                                    <p>Enter the student's academic details.</p>
+                                </div>
+                            </div>
+
+                            <span class="step-label">STEP 01</span>
+                        </div>
+
+
+                        <form id="predictionForm">
+
+                            <div class="form-section-title">
+                                <span>01</span>
+                                <h4>Basic Information</h4>
+                            </div>
+
+                            <div class="form-grid">
+
+                                <div class="field">
+                                    <label for="age">Student Age</label>
+                                    <input type="number" id="age" name="age"
+                                           min="10" max="100"
+                                           value="21" required>
+                                    <small>Age in completed years</small>
+                                </div>
+
+                                <div class="field">
+                                    <label for="attendance_percentage">Attendance (%)</label>
+                                    <input type="number"
+                                           id="attendance_percentage"
+                                           name="attendance_percentage"
+                                           min="0" max="100" step="any"
+                                           placeholder="e.g. 85" required>
+                                    <small>Percentage of classes attended</small>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-section-title">
+                                <span>02</span>
+                                <h4>Academic Performance</h4>
+                            </div>
+
+                            <div class="form-grid">
+
+                                <div class="field">
+                                    <label for="study_hours_per_week">
+                                        Study Hours / Week
+                                    </label>
+                                    <input type="number"
+                                           id="study_hours_per_week"
+                                           name="study_hours_per_week"
+                                           min="0" max="168" step="any"
+                                           placeholder="e.g. 15" required>
+                                    <small>Hours spent studying weekly</small>
+                                </div>
+
+                                <div class="field">
+                                    <label for="previous_grade">
+                                        Previous Grade / Score
+                                    </label>
+                                    <input type="number"
+                                           id="previous_grade"
+                                           name="previous_grade"
+                                           min="0" max="100" step="any"
+                                           placeholder="e.g. 75" required>
+                                    <small>Previous academic score</small>
+                                </div>
+
+                                <div class="field">
+                                    <label for="internal_marks">Internal Marks</label>
+                                    <input type="number" id="internal_marks"
+                                           name="internal_marks"
+                                           min="0" max="100" step="any"
+                                           placeholder="e.g. 80" required>
+                                    <small>Marks obtained in internals</small>
+                                </div>
+
+                                <div class="field">
+                                    <label for="quiz_average">Quiz Average</label>
+                                    <input type="number" id="quiz_average"
+                                           name="quiz_average"
+                                           min="0" max="100" step="any"
+                                           placeholder="e.g. 78" required>
+                                    <small>Average quiz score</small>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-section-title">
+                                <span>03</span>
+                                <h4>Assignments & Participation</h4>
+                            </div>
+
+                            <div class="form-grid">
+
+                                <div class="field">
+                                    <label for="assignments_total">
+                                        Total Assignments
+                                    </label>
+                                    <input type="number"
+                                           id="assignments_total"
+                                           name="assignments_total"
+                                           min="0" step="1"
+                                           placeholder="e.g. 10" required>
+                                    <small>Total assigned tasks</small>
+                                </div>
+
+                                <div class="field">
+                                    <label for="assignments_completed">
+                                        Completed Assignments
+                                    </label>
+                                    <input type="number"
+                                           id="assignments_completed"
+                                           name="assignments_completed"
+                                           min="0" step="1"
+                                           placeholder="e.g. 9" required>
+                                    <small>Tasks completed by student</small>
+                                </div>
+
+                                <div class="field full-width">
+                                    <label for="class_participation_score">
+                                        Class Participation Score
+                                    </label>
+                                    <input type="number"
+                                           id="class_participation_score"
+                                           name="class_participation_score"
+                                           min="0" max="100" step="any"
+                                           placeholder="e.g. 85" required>
+                                    <small>Classroom engagement score (0–100)</small>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-actions">
+                                <button type="submit" id="predictBtn"
+                                        class="predict-button">
+                                    <span>Generate Prediction</span>
+                                    <span>→</span>
+                                </button>
+                                <p class="form-note">
+                                    ✦ Your input will be processed by the trained ML models.
+                                </p>
+                            </div>
+
+                            <p id="errorMessage" class="error-message"
+                               role="alert"></p>
+
+                        </form>
+                    </article>
+
+
+                    <!-- PREDICTION RESULT -->
+                    <article class="content-card result-card">
+
+                        <div class="card-heading">
+                            <div class="heading-with-icon">
+                                <div class="heading-icon blue">✦</div>
+                                <div>
+                                    <h3>Prediction Result</h3>
+                                    <p>Machine learning output</p>
+                                </div>
+                            </div>
+
+                            <span class="step-label">STEP 02</span>
+                        </div>
+
+
+                        <div id="emptyResult" class="empty-state">
+                            <div class="empty-illustration">
+                                <span>✦</span>
+                            </div>
+                            <h3>Ready to Predict</h3>
+                            <p>
+                                Submit student information to see the
+                                predicted final score and grade.
+                            </p>
+                            <span class="waiting-label">
+                                WAITING FOR INPUT
+                            </span>
+                        </div>
+
+
+                        <div id="predictionResult"
+                             class="prediction-result hidden">
+
+                            <div class="result-success-label">
+                                <span class="online-dot"></span>
+                                PREDICTION GENERATED
+                            </div>
+
+                            <p class="result-label">PREDICTED FINAL SCORE</p>
+
+                            <div class="score-display">
+                                <span id="predictedScore">--</span>
+                                <small>/ 100</small>
+                            </div>
+
+                            <div class="score-divider"></div>
+
+                            <div class="grade-card">
+                                <div>
+                                    <p>Predicted Grade</p>
+                                    <small>Classification model output</small>
+                                </div>
+                                <h2 id="predictedGrade">--</h2>
+                            </div>
+
+                            <div class="result-info">
+                                <span>Prediction ID</span>
+                                <strong id="predictionId"></strong>
+                            </div>
+
+                            <div class="prediction-note">
+                                <span>ⓘ</span>
+                                <p>
+                                    This is an estimated result generated by
+                                    machine learning models, not an actual
+                                    examination result.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+            </section>
+
+
+            <!-- PREDICTION HISTORY -->
+            <section class="section-block" id="history">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-kicker">RECORD MANAGEMENT</span>
+                        <h2>Prediction History</h2>
+                        <p>Review previously saved student predictions.</p>
+                    </div>
+
+                    <button type="button" id="refreshHistory"
+                            class="secondary-btn">
+                        <span>↻</span> Refresh Data
+                    </button>
+                </div>
+
+
+                <article class="content-card history-card">
+
+                    <div class="history-toolbar">
+                        <div class="history-description">
+                            <h3>All Predictions</h3>
+                            <p>Records retrieved from the database.</p>
+                        </div>
+
+                        <div class="history-controls">
+                            <div class="search-box">
+                                <span>⌕</span>
+                                <input type="search" id="historySearch"
+                                       placeholder="Search by ID or grade..."
+                                       aria-label="Search prediction history">
+                            </div>
+
+                            <select id="gradeFilter"
+                                    aria-label="Filter history by grade">
+                                <option value="all">All Grades</option>
+                                <option value="O">Grade O</option>
+                                <option value="A+">Grade A+</option>
+                                <option value="A">Grade A</option>
+                                <option value="B">Grade B</option>
+                                <option value="C">Grade C</option>
+                                <option value="D">Grade D</option>
+                                <option value="F">Grade F</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Age</th>
+                                    <th>Attendance</th>
+                                    <th>Study Hours</th>
+                                    <th>Predicted Score</th>
+                                    <th>Predicted Grade</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="historyBody">
+                                <tr>
+                                    <td colspan="7" class="table-message">
+                                        Loading prediction history...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-footer">
+                        <span>Showing saved prediction records</span>
+                        <span class="database-indicator">
+                            <span class="online-dot"></span>
+                            SQLite Database
+                        </span>
+                    </div>
+
+                </article>
+            </section>
+
+
+            <!-- FOOTER -->        
+            
+        <!-- MODEL PERFORMANCE -->
+        <section class="section-block" id="modelPerformance">
+
+            <div class="section-heading">
+                <div>
+                    <span class="section-kicker">MODEL EVALUATION</span>
+                    <h2>Model Performance</h2>
+                    <p>Evaluation results of the trained machine learning models.</p>
+                </div>
+            </div>
+
+            <!-- MODEL METRICS -->
+            <div class="stats-grid">
+
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon purple">MAE</div>
+                        <span class="stat-tag">REGRESSION</span>
+                    </div>
+                    <p>Mean Absolute Error</p>
+                    <h3 id="modelMAE">Loading...</h3>
+                    <small>Average absolute prediction error</small>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon blue">RMSE</div>
+                        <span class="stat-tag">REGRESSION</span>
+                    </div>
+                    <p>Root Mean Squared Error</p>
+                    <h3 id="modelRMSE">Loading...</h3>
+                    <small>Penalizes larger prediction errors</small>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon green">R²</div>
+                        <span class="stat-tag">REGRESSION</span>
+                    </div>
+                    <p>R-Squared Score</p>
+                    <h3 id="modelR2">Loading...</h3>
+                    <small>Explained variance proportion</small>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon orange">%</div>
+                        <span class="stat-tag">CLASSIFICATION</span>
+                    </div>
+                    <p>Classification Accuracy</p>
+                    <h3 id="modelAccuracy">Loading...</h3>
+                    <small>Correctly classified predictions</small>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon purple">F1</div>
+                        <span class="stat-tag">CLASSIFICATION</span>
+                    </div>
+                    <p>Macro F1-Score</p>
+                    <h3 id="modelMacroF1">Loading...</h3>
+                    <small>Average F1 across grade classes</small>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon blue">BA</div>
+                        <span class="stat-tag">CLASSIFICATION</span>
+                    </div>
+                    <p>Balanced Accuracy</p>
+                    <h3 id="modelBalancedAccuracy">Loading...</h3>
+                    <small>Average recall across grade classes</small>
+                </article>
+
+            </div>
+
+            <!-- TRAINING AND TESTING INFORMATION -->
+            <div class="stats-grid">
+
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon green">TR</div>
+                        <span class="stat-tag">DATASET SPLIT</span>
+                    </div>
+                    <p>Training Records</p>
+                    <h3 id="trainingRecords">Loading...</h3>
+                    <small>Records used to train the models</small>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon orange">TE</div>
+                        <span class="stat-tag">DATASET SPLIT</span>
+                    </div>
+                    <p>Testing Records</p>
+                    <h3 id="testingRecords">Loading...</h3>
+                    <small>Records used for model evaluation</small>
+                </article>
+
+            </div>
+
+            <!-- MODEL DETAILS -->
+            <div class="charts-grid">
+
+                <article class="content-card">
+                    <div class="card-heading">
+                        <div>
+                            <h3>Regression Model</h3>
+                            <p>Linear Regression evaluation</p>
+                        </div>
+                    </div>
+
+                    <div class="methodology-content">
+                        <p><strong>Algorithm:</strong> <span id="regressionName">Loading...</span></p>
+                        <p><strong>Target:</strong> <span id="regressionTarget">Loading...</span></p>
+                        <p><strong>MAE:</strong> <span id="regressionMAE">Loading...</span></p>
+                        <p><strong>RMSE:</strong> <span id="regressionRMSE">Loading...</span></p>
+                        <p><strong>R² Score:</strong> <span id="regressionR2">Loading...</span></p>
+                    </div>
+                </article>
+
+                <article class="content-card">
+                    <div class="card-heading">
+                        <div>
+                            <h3>Classification Model</h3>
+                            <p>Logistic Regression evaluation</p>
+                        </div>
+                    </div>
+
+                    <div class="methodology-content">
+                        <p><strong>Algorithm:</strong> <span id="classificationName">Loading...</span></p>
+                        <p><strong>Target:</strong> <span id="classificationTarget">Loading...</span></p>
+                        <p><strong>Accuracy:</strong> <span id="classificationAccuracy">Loading...</span></p>
+                        <p><strong>Macro F1-Score:</strong> <span id="classificationMacroF1">Loading...</span></p>
+                        <p><strong>Balanced Accuracy:</strong> <span id="classificationBalancedAccuracy">Loading...</span></p>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- EVALUATION INTERPRETATION -->
+            <article class="content-card methodology-content">
+                <h3>Evaluation Interpretation</h3>
+
+                <p>
+                    The regression model's MAE represents the average absolute
+                    difference between predicted and actual scores on the
+                    evaluation data.
+                </p>
+
+                <p>
+                    Classification Accuracy, Macro F1-Score and Balanced Accuracy
+                    provide different perspectives on grade prediction performance.
+                    The classification results should be interpreted carefully
+                    and may require further improvement.
+                </p>
+
+                <p>
+                    These metrics describe evaluation performance and do not
+                    guarantee the accuracy of an individual prediction.
+                </p>
+            </article>
+
+        </section>
+
+
+
+            <!-- STUDENT INSIGHTS -->
+            <section class="section-block" id="studentInsights">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-kicker">STUDENT ANALYSIS</span>
+                        <h2>Student Insights</h2>
+                        <p>Explore patterns and potential areas requiring attention.</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon purple">◎</div>
+                            <span class="stat-tag">DATABASE</span>
+                        </div>
+                        <p>Prediction Records Analyzed</p>
+                        <h3 id="insightsTotal">0</h3>
+                        <small>Saved prediction records</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon green">↗</div>
+                            <span class="stat-tag">PERFORMANCE</span>
+                        </div>
+                        <p>Average Attendance</p>
+                        <h3 id="insightsAttendance">0%</h3>
+                        <small>Across saved records</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon blue">★</div>
+                            <span class="stat-tag">ACADEMIC</span>
+                        </div>
+                        <p>Average Study Hours</p>
+                        <h3 id="insightsStudyHours">0</h3>
+                        <small>Hours per week</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon orange">!</div>
+                            <span class="stat-tag">ATTENTION</span>
+                        </div>
+                        <p>Records Requiring Review</p>
+                        <h3 id="insightsAttention">0</h3>
+                        <small>Based on configurable indicators</small>
+                    </article>
+
+                </div>
+
+                <article class="content-card">
+                    <div class="card-heading">
+                        <div>
+                            <h3>Student Analysis & Recommendations</h3>
+                            <p>Insights generated from stored academic information.</p>
+                        </div>
+                    </div>
+
+                    <div id="insightsContainer" class="methodology-content">
+                        <p>Loading student insights...</p>
+                    </div>
+                </article>
+
+            </section>
+
+
+            <!-- DATASET & METHODOLOGY -->
+            <section class="section-block" id="methodology">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-kicker">PROJECT DOCUMENTATION</span>
+                        <h2>Dataset & Methodology</h2>
+                        <p>Understand the data, machine learning workflow and technology stack.</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon purple">▤</div>
+                            <span class="stat-tag">DATASET</span>
+                        </div>
+                        <p>Total Records</p>
+                        <h3>2,000</h3>
+                        <small>Dataset observations</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon blue">▦</div>
+                            <span class="stat-tag">DATASET</span>
+                        </div>
+                        <p>Total Columns</p>
+                        <h3>12</h3>
+                        <small>Input and target variables</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon green">↗</div>
+                            <span class="stat-tag">ML TASK</span>
+                        </div>
+                        <p>Regression</p>
+                        <h3>Score</h3>
+                        <small>Predicting final academic score</small>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon orange">◎</div>
+                            <span class="stat-tag">ML TASK</span>
+                        </div>
+                        <p>Classification</p>
+                        <h3>Grade</h3>
+                        <small>Predicting final academic grade</small>
+                    </article>
+
+                </div>
+
+                <article class="content-card methodology-content">
+                    <h3>1. Dataset Overview</h3>
+                    <p>
+                        The project dataset contains 2,000 student records and
+                        12 columns, including academic information and target variables.
+                    </p>
+
+                    <p><strong>Input features:</strong></p>
+                    <ul>
+                        <li>Age and attendance percentage</li>
+                        <li>Study hours per week</li>
+                        <li>Previous grade</li>
+                        <li>Total and completed assignments</li>
+                        <li>Internal marks and quiz average</li>
+                        <li>Class participation score</li>
+                    </ul>
+
+                    <p><strong>Target variables:</strong></p>
+                    <ul>
+                        <li>Final score – Regression</li>
+                        <li>Final grade – Classification</li>
+                    </ul>
+                </article>
+
+                <article class="content-card methodology-content">
+                    <h3>2. Machine Learning Workflow</h3>
+
+                    <ol>
+                        <li>Dataset collection and loading</li>
+                        <li>Exploratory Data Analysis (EDA)</li>
+                        <li>Missing-value handling and preprocessing</li>
+                        <li>Feature preparation</li>
+                        <li>Model training and evaluation</li>
+                        <li>Model serialization using Joblib</li>
+                        <li>Prediction through Flask API</li>
+                        <li>Storage and retrieval using SQLite</li>
+                        <li>Visualization through the web dashboard</li>
+                    </ol>
+                </article>
+
+                <article class="content-card methodology-content">
+                    <h3>3. Technologies Used</h3>
+
+                    <ul>
+                        <li><strong>Python:</strong> Main programming language</li>
+                        <li><strong>Pandas & NumPy:</strong> Data processing</li>
+                        <li><strong>Scikit-learn:</strong> Machine learning models</li>
+                        <li><strong>Matplotlib & Seaborn:</strong> Data visualization</li>
+                        <li><strong>Joblib:</strong> Saving and loading trained models</li>
+                        <li><strong>Flask:</strong> Backend API and application server</li>
+                        <li><strong>SQLite:</strong> Prediction record storage</li>
+                        <li><strong>HTML, CSS & JavaScript:</strong> Frontend</li>
+                        <li><strong>Chart.js:</strong> Interactive dashboard charts</li>
+                    </ul>
+                </article>
+
+            </section>
+
+            <footer class="page-footer">
+                <div>
+                    <strong>Student Analytics</strong>
+                    <span>AI-Powered Student Performance Prediction & Analytics</span>
+                </div>
+                <p>Built with Machine Learning & Flask</p>
+            </footer>
+
+        </div>
+    </main>
+</div>
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
